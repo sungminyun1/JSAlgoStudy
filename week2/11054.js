@@ -13,9 +13,9 @@ function main(Arr){
         memo.push([1,1])
     }
 
-    for(let i = 1; i<Arr.length-1; i++){
+    for(let i = 1; i<Arr.length; i++){
         let leftCandi = 0;
-        for(let j = i; j>= 0; j--){
+        for(let j = i-1 ; j>= 0; j--){
             if(Arr[i] > Arr[j] && memo[j][0] > leftCandi){
                 leftCandi = memo[j][0];
             }
@@ -23,9 +23,9 @@ function main(Arr){
         memo[i][0] = leftCandi+1
     }
 
-    for(let i = Arr.length-2; i>0; i--){
+    for(let i = Arr.length-2; i>=0; i--){
         let rightCandi = 0;
-        for(let j = i; j < Arr.length; j++){
+        for(let j = i+1; j < Arr.length; j++){
             if(Arr[i] > Arr[j] && memo[j][1] > rightCandi){
                 rightCandi = memo[j][1];
             }
