@@ -1,3 +1,9 @@
+/*
+    case 1 : oxoo
+    case 2 : oxo
+    case 3 : 안마심
+ */
+
 const input = `6
 6
 10
