@@ -33,4 +33,7 @@ function main(Arr){
     }
 
     console.log(memo.pop())
+
+
+
 }
