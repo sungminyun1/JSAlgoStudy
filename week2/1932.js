@@ -2,7 +2,7 @@
     위층 둘중 큰것 + 지금 값
  */
 
-const input = `5
+const input = `5/home/yun/WebstormProjects/algo
 7
 3 8
 8 1 0
