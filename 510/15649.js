@@ -1,7 +1,7 @@
-const input = `3 1`.split(' ').map(Number)
+const input = `4 4`.split(' ').map(Number)
 
-const fs = require('fs');
-const input = fs.readFileSync('dev/stdin').toString().trim().split(' ').map(Number)
+// const fs = require('fs');
+// const input = fs.readFileSync('dev/stdin').toString().trim().split(' ').map(Number)
 
 main(input[0],input[1]);
 
