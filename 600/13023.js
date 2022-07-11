@@ -1,12 +1,8 @@
-const input = `8 8
-1 7
-3 7
-4 7
-3 4
-4 6
-3 5
-0 4
-2 7`.split('\n').map(val=>val.split(' ').map(Number));
+const input = `5 4
+0 1
+1 2
+2 3
+3 4`.split('\n').map(val=>val.split(' ').map(Number));
 
 // const fs = require('fs');
 // const input = fs.readFileSync('dev/stdin').toString().trim().split('\n').map(val=>val.split(' ').map(Number));
@@ -31,6 +27,7 @@ function main(N,M,Arr){
     let max = 0;
 
     const dfs = (now,count,visited) =>{
+        if(max>=4) return;
         visited[now] = true;
         for(let i =0; i<graph[now].length; i++){
             if(!visited[graph[now][i]]){
@@ -38,6 +35,7 @@ function main(N,M,Arr){
             }
         }
         max = max>count? max:count
+        visited[now] = false
     }
 
     for(let i =0; i<N; i++){
