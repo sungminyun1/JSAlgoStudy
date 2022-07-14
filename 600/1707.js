@@ -1,12 +1,14 @@
-const input = `2
-3 2
+const input = `1
+6 6
 1 3
-2 3
-4 4
-1 2
-2 3
 3 4
-4 2`.split('\n').map(val=>val.split(' ').map(Number));
+4 2
+2 5
+5 6
+6 1`.split('\n').map(val=>val.split(' ').map(Number));
+
+// const fs = require("fs");
+// const input = fs.readFileSync("dev/stdin").toString().trim().split('\n').map(val=>val.split(' ').map(Number));
 
 const [K] = input.shift();
 
@@ -23,7 +25,7 @@ function main(V,E,Arr){
     let count = 0;
 
     const graph = [];
-    const visited = [];
+    const visited = new Array(V+1).fill(0);
 
     for(let i =0; i<=V; i++){
         graph[i] = [];
@@ -34,25 +36,34 @@ function main(V,E,Arr){
         graph[to].push(from);
     }
 
-    const dfs = (now) =>{
-        visited[now] = true;
-        for(let i =0; graph[now].length; i++){
-            if(!visited[graph[now][i]]){
-                dfs(graph[now][i])
+    let flag = false;
+
+    const bfs = (start) =>{
+        let needVisit = [...graph[start]];
+        let token = 1;
+        visited[start] = token;
+    
+        while(needVisit.length){
+            token *= -1;
+            let tmp = []
+            for(let i =0; i<needVisit.length; i++){
+                if(visited[needVisit[i]] === 0){
+                    visited[needVisit[i]] = token;
+                    tmp.push(...graph[needVisit[i]]);
+                }else if(visited[needVisit[i]] !== token){
+                    flag = true;
+                    return;
+                }
             }
+            needVisit = tmp
+        }
+    }
+    
+    for(let i =1; i<=V; i++){
+        if(!visited[i] && !flag){
+            bfs(i)
         }
     }
 
-    for(let i = 1; i<=V; i++){
-        if(!visited[i]){
-            if(count === 2){
-                console.log('NO');
-                return;
-            }
-            count++;
-            dfs(i)
-        }
-    }
-
-    console.log(count === 2? 'YES': 'NO')
+    console.log(flag? 'NO':'YES')
 }
