@@ -4,8 +4,8 @@ const input = `4
 2 4
 1 2 3 4`.split('\n');
 
-const fs = require("fs");
-const input = fs.readFileSync("dev/stdin").toString().trim().split('\n')
+// const fs = require("fs");
+// const input = fs.readFileSync("dev/stdin").toString().trim().split('\n')
 
 const N = +input.shift();
 const graph = [];
