@@ -41,5 +41,5 @@ function main(N,Board){
         }
     }
 
-    console.log(Board)
+    // console.log(Board)
 }
