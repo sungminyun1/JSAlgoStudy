@@ -14,10 +14,13 @@ main(+input.shift(),input.map(val=>val.split(' ').map(Number)))
 
 function main(N,Board){
     let token = 0;
+    const dir = [[0,1],[1,0],[-1,0],[0,-1]]
+
+    let min = Infinity;
 
     const bfs = (row,col) =>{
         const needVisit = [[row,col]]
-        const dir = [[0,1],[1,0],[-1,0],[0,-1]]
+        
         while(needVisit.length){
             const [nowr,nowc] = needVisit.shift();
             if(Board[nowr][nowc] === token) continue;
@@ -27,6 +30,25 @@ function main(N,Board){
                 const nexc = nowc + dir[i][1];
                 if(nexr >=0 && nexr < N && nexc >=0 && nexc <N && Board[nexr][nexc] === 1){
                     needVisit.push([nexr,nexc])
+                }
+            }
+        }
+    }
+
+    const find = (start,needVisit,visited) =>{
+        while(needVisit.length){
+            let [row,col,dist] = needVisit.shift();
+            visited[row][col] = true;
+
+            for(let i =0; i<dir.length; i++){
+                let nexr = row + dir[i][0];
+                let nexc = col + dir[i][1];
+                if(nexr>=0 && nexr<N && nexc>=0 && nexc<N && !visited[nexr][nexc]){
+                    if(Board[nexr][nexc] === 0){
+                        needVisit.push([nexr,nexc,dist+1])
+                    }else if(Board[nexr][nexc] !== start){
+                        min = min<dist? min:dist
+                    }
                 }
             }
         }
@@ -52,5 +74,20 @@ function main(N,Board){
                 if(Board[j][k] === i) nv.push([j,k])
             }
         }
+        let nv2 = [];
+        for(let j=0; j<nv.length; j++){
+            let [nrow,ncol] = nv[j];
+            for(let k =0; k<dir.length; k++){
+                let nexrow = nrow + dir[k][0];
+                let nexcol = ncol + dir[k][1];
+                if(nexrow >=0 && nexrow<N && nexcol >=0 && nexcol<N && Board[nexrow][nexcol] === 0){
+                    nv2.push([nexrow,nexcol,1])
+                }
+            }
+        }
+
+        find(i,nv2,v)
     }
+
+    console.log(min)
 }
