@@ -24,7 +24,7 @@ function main(N,Board){
             Board[nowr][nowc] = token;
             for(let i =0; i<dir.length; i++){
                 const nexr = nowr + dir[i][0];
-                const nexc = nowr + dir[i][1];
+                const nexc = nowc + dir[i][1];
                 if(nexr >=0 && nexr < N && nexc >=0 && nexc <N && Board[nexr][nexc] === 1){
                     needVisit.push([nexr,nexc])
                 }
@@ -41,5 +41,16 @@ function main(N,Board){
         }
     }
 
-    // console.log(Board)
+    for(let i = -1; i>=token; i--){
+        let v =[];
+        for(let j =0; j<N; j++){
+            v.push([]);
+        }
+        let nv = [];
+        for(let j=0; j<N; j++){
+            for(let k=0; k<N; k++){
+                if(Board[j][k] === i) nv.push([j,k])
+            }
+        }
+    }
 }
