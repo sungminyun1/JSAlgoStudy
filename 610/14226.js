@@ -8,22 +8,25 @@ main(+input)
 function main(Target){
     const needVisit = [[1,1,1]]
     const visited = []
+    for(let i =0; i<=1000; i++){
+        visited.push([])
+    }
     while(needVisit.length){
         let [now,clip,depth] = needVisit.shift();
 
-        if(visited[now] === clip) continue;
+        if(visited[now][clip]) continue;
 
         if(now === Target){
             console.log(depth)
             return;
         }
         
-        visited[now] = clip;
+        visited[now][clip] = true;
 
         const candi = [[now+clip,clip,depth+1],[now,now,depth+1],[now-1,clip,depth+1]]
         for(let i =0; i<candi.length; i++){
             let [cn,cc,cd] = candi[i];
-            if(cn>=2 && cn<=1000 && visited[cn] !== clip){
+            if(cn>=2 && cn<=1000 && !visited[cn][cc]){
                 needVisit.push(candi[i])
             }
         }
