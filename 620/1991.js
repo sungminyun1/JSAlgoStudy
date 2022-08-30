@@ -7,6 +7,9 @@ F . G
 D . .
 G . .`.split('\n')
 
+// const fs = require("fs");
+// const input = fs.readFileSync("dev/stdin").toString().trim().split('\n')
+
 const N = +input.shift();
 
 main(N,input.map(val=>val.split(' ')))
@@ -20,4 +23,22 @@ function main(N,Arr){
     const pres = [];
     const mres = [];
     const lres = [];
+
+    const find = (now) =>{
+        pres.push(now)
+        let [left,right] = graph[now];
+        if(left !== '.'){
+            find(left)
+        }
+        mres.push(now);
+        if(right !== '.'){
+            find(right)
+        }
+        lres.push(now)
+    }
+    find('A')
+
+    console.log(pres.join(''));
+    console.log(mres.join(''));
+    console.log(lres.join(''));
 }
