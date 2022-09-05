@@ -25,4 +25,7 @@ main(N,input.map(val=>val.split(' ').map(Number)))
 
 function main(N,Graph){
     console.log(N,Graph)
+
+
+    
 }
