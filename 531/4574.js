@@ -51,5 +51,92 @@ while(true){
 }
 
 function solve(Board){
-    console.log(Board)
+    const domino = []
+    const visit = []
+    const zero = [];
+    for(let i =1; i<10; i++){
+        for(let j = 1; j<10; j++){
+            if(i !== j){
+                domino.push([i,j])
+            }
+        }
+    }
+
+    for(let i =0; i<9; i++){
+        for(let j =0; j<9; j++){
+            if(Board[i][j] === 0){
+                zero.push([i,j])
+            }
+        }
+    }
+
+    let done = false;
+    const find = (now) =>{
+        if(done) return;
+
+        // if(now === 10) console.log(10)
+        // if(now === 20) console.log(20)
+        // if(now === 30) console.log(30)
+        // if(now === 40) console.log(40)
+        if(now === 5){
+            console.log('hi')
+        } 
+        console.log(now)
+
+        if(now >= zero.length){
+            done = true;
+            console.log(Board.map(val=>val.join('')).join('\n'))
+            return
+        }
+        const [row,col] = zero[now];
+        if(Board[row][col] !== 0){
+            return;
+        }
+
+        for(let i =0; i<domino.length; i++){
+            if(visit[i]) continue;
+            if(check(row,col,domino[i][0])){
+                if(Board[row][col+1] === 0 && check(row,col+1,domino[i][1])){
+                    Board[row][col] = domino[i][0];
+                    Board[row][col+1] = domino[i][1];
+                    visit[i] = true
+                    find(now+1);
+                    Board[row][col] = 0;
+                    Board[row][col+1] = 0;
+                    visit[i] = false
+                }
+
+                if(Board[row+1] && Board[row+1][col] === 0 && check(row+1,col,domino[i][1])){
+                    Board[row][col] = domino[i][0];
+                    Board[row+1][col] = domino[i][1];
+                    visit[i] = true;
+                    find(now+1)
+                    Board[row][col] = 0;
+                    Board[row+1][col] = 0;
+                    visit[i] = false
+                }
+            }
+        }
+    }
+
+    find(0)
+}
+
+function check(row,col,val){
+    for(let i=0; i<9; i++){
+        if(input[row][i] === val || input[i][col] === val){
+            return false;
+        }
+    }
+    let cube_r = Math.floor(row/3)*3;
+    let cube_c = Math.floor(col/3)*3;
+    for(let l = cube_r; l<cube_r+3; l++){
+        for(let m = cube_c; m<cube_c+3; m++){
+            if(input[l][m] === val){
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
