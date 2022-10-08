@@ -81,7 +81,7 @@ function solve(Board){
         if(now === 5){
             console.log('hi')
         } 
-        console.log(now)
+        // console.log(now)
 
         if(now >= zero.length){
             done = true;
@@ -95,8 +95,8 @@ function solve(Board){
 
         for(let i =0; i<domino.length; i++){
             if(visit[i]) continue;
-            if(check(row,col,domino[i][0])){
-                if(Board[row][col+1] === 0 && check(row,col+1,domino[i][1])){
+            if(check(row,col,domino[i][0],Board)){
+                if(Board[row][col+1] === 0 && check(row,col+1,domino[i][1],Board)){
                     Board[row][col] = domino[i][0];
                     Board[row][col+1] = domino[i][1];
                     visit[i] = true
@@ -106,7 +106,7 @@ function solve(Board){
                     visit[i] = false
                 }
 
-                if(Board[row+1] && Board[row+1][col] === 0 && check(row+1,col,domino[i][1])){
+                if(Board[row+1] && Board[row+1][col] === 0 && check(row+1,col,domino[i][1],Board)){
                     Board[row][col] = domino[i][0];
                     Board[row+1][col] = domino[i][1];
                     visit[i] = true;
@@ -117,14 +117,15 @@ function solve(Board){
                 }
             }
         }
+        console.log('end?')
     }
 
     find(0)
 }
 
-function check(row,col,val){
+function check(row,col,val,Board){
     for(let i=0; i<9; i++){
-        if(input[row][i] === val || input[i][col] === val){
+        if(Board[row][i] === val || Board[i][col] === val){
             return false;
         }
     }
@@ -132,7 +133,7 @@ function check(row,col,val){
     let cube_c = Math.floor(col/3)*3;
     for(let l = cube_r; l<cube_r+3; l++){
         for(let m = cube_c; m<cube_c+3; m++){
-            if(input[l][m] === val){
+            if(Board[l][m] === val){
                 return false;
             }
         }
