@@ -129,6 +129,8 @@ function check(row,col,val,Board){
             return false;
         }
     }
+
+    
     let cube_r = Math.floor(row/3)*3;
     let cube_c = Math.floor(col/3)*3;
     for(let l = cube_r; l<cube_r+3; l++){
