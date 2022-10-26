@@ -36,7 +36,9 @@ function move(dir){
                     done: true
                 }
             }else if(Board[tr[0]][tr[1]] === 'B'){
-                if(Board[tr[0]+dir[0]][tr[1]+dir[1]] === '.')
+                if(Board[tr[0]+dir[0]][tr[1]+dir[1]] === '.'){
+                    
+                }
             }
         }
     }
