@@ -13,6 +13,9 @@ const input = `4 9
 43 33
 77 21`.split('\n').map(val=>val.split(' ').map(Number))
 
+// const fs = require('fs');
+// const input = fs.readFileSync('dev/stdin').toString().trim().split('\n').map(val=>val.split(' ').map(Number));
+
 const [stair, snake] = input.shift();
 const move = new Array(101).fill(0);
 
@@ -27,21 +30,25 @@ const visited = [];
 const needVisit = [[1,0]];
 
 while(needVisit.length){
-    const [now,level] = needVisit.shift();
-    if(visited[now] || now > 100) continue;
+    let [now,level] = needVisit.shift();
+    
 
+    if(!move[now]){
+        visited[now] = true;
+    }else{
+        now = move[now]
+    }
+    
+    if(visited[now] || now > 100) continue;
+    
     if(now === 100){
         if(min>level) min = level;
         continue;
     }
-    visited[now] = true;
-    if(move[now]>0){
-        needVisit.push([move[now],level]);
-        continue;
-    }
+
     for(let i = 1; i<=6; i++){
         let next = now + i;
-        if(!visited[next]){
+        if(!visited[next] || move[next]>0){
             needVisit.push([next,level+1])
         }
     }
